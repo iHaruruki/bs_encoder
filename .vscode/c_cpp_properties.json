@@ -1,0 +1,36 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/grape/catkin_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/grape/catkin_ws/src/blackship_sensor_inquiry_pkg/include/**",
+        "/home/grape/catkin_ws/src/bs_controller/include/**",
+        "/home/grape/catkin_ws/src/bs_encoder/include/**",
+        "/home/grape/catkin_ws/src/bs_simulator/include/**",
+        "/home/grape/catkin_ws/src/bs_teleop/include/**",
+        "/home/grape/catkin_ws/src/hello_world_pkg/include/**",
+        "/home/grape/catkin_ws/src/my_navi_pkg/include/**",
+        "/home/grape/catkin_ws/src/my_teleop_pkg/include/**",
+        "/home/grape/catkin_ws/src/serial_test_both_pkg/include/**",
+        "/home/grape/catkin_ws/src/teleop_test_pkg/include/**",
+        "/home/grape/catkin_ws/src/turtlebot3_simulations/turtlebot3_fake/include/**",
+        "/home/grape/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/include/**",
+        "/home/grape/catkin_ws/src/turtlebot3/turtlebot3_slam/include/**",
+        "/home/grape/catkin_ws/src/wall_detector_pkg/include/**",
+        "/home/grape/catkin_ws/src/wall_follower_pkg/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

@@ -3,19 +3,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include"serial_controller.h"
+#include "serial_controller.h"
 
 SerialPort sp;
 unsigned char encoder_send[] = {0x02, 0x01, 0x05, 0xF9, 0x03};
 unsigned char encoder_response[10];
+
+int Encoder_right = 0;
+int Encoder_left = 0;
+int Encoder_right_before = 0;
+int Encoder_left_before = 0;
 
 void encoder_count()
 {	
 	sp.Write(encoder_send, 5);
 	sp.Read(encoder_response, 10);
 
-	int Encoder_right = 0;
-	int Encoder_left = 0;
 	static int Encoder_right_af = 0;
 	static int Encoder_left_af = 0;
 
