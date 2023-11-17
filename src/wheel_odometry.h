@@ -26,8 +26,8 @@ private:
     double cur_v_x;
     double cur_v_th;
 
-    double Lx, Ll;
-    double d_Lx, d_Ll;
+    double Lr, Ll;
+    double d_Lr, d_Ll;
     double Lr_o, Ll_o;
 
     double track_width;

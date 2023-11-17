@@ -48,15 +48,15 @@ void WheelOdometry::run()
 void WheelOdometry::timer_callback(const ros::TimerEvent& e)
 {
     cur_stamp = ros::Time::now();
-    d_time = (cur_stamp last_stamp).toSec(); // 微小時間
+    d_time = (cur_stamp - last_stamp).toSec(); // 微小時間
     last_stamp = cur_stamp;
 
-    // エンコーダ値の取得と距離計算 : Ll とLr に積算距離 m] を代入する．
-    Lr =
-    Ll =
+    // エンコーダ値の取得と距離計算 : Ll とLr に積算距離 m] を代入する．-----------------------------------------------------------------------------------------------------
+    Lr = 0;
+    Ll = 0;
 
-    d_Lr = Lr Lr_o; // 右車輪の微小移動距離
-    d_Ll = Ll Ll_o; // 左車輪の微小移動距離
+    d_Lr = Lr - Lr_o; // 右車輪の微小移動距離
+    d_Ll = Ll - Ll_o; // 左車輪の微小移動距離
     Lr_o = Lr;
     Ll_o = Ll;
 
@@ -69,7 +69,7 @@ void WheelOdometry::update( )
     double d_L = (d_Lr + d_Ll) / 2.0; // 微小並進移動距離
     double d_theta = 0.0; // 微小旋回角度
     // 直進時
-    if ( std::fabs( d_Lr d_Ll ) < 0.000001 )
+    if ( std::fabs( d_Lr - d_Ll ) < 0.000001 )
     {
         cur_x += d_L * std::cos( cur_th ); // x_i
         cur_y += d_L * std::sin( cur_th ); // y_i
@@ -78,12 +78,12 @@ void WheelOdometry::update( )
     // 旋回時
     else
     {
-        d_theta = ( d_Lr d_Ll ) / track_width; // 微小旋回角度
+        d_theta = ( d_Lr - d_Ll ) / track_width; // 微小旋回角度
         double rho = d_L / d_theta; // 旋回半径
         double d_Lp = 2.0 * rho * std::sin( d_theta * 0.5 );
-        cur_x ++= d_Lp * std::cos( cur_th + d_theta * 0.5 );// x_i
-        cur_y ++= d_Lp * std::sin( cur_th + d_theta * 0.5 ); // y_i
-        cur_th = normalize_angle( cur_th + d_theta ); // theta_i
+        cur_x += d_Lp * std::cos( cur_th + d_theta * 0.5 );     // x_i
+        cur_y += d_Lp * std::sin( cur_th + d_theta * 0.5 );     // y_i
+        cur_th = normalize_angle( cur_th + d_theta );           // theta_i
     }
 
     // 移動速度計算
@@ -152,7 +152,7 @@ void WheelOdometry::publish_tf()
 
 double WheelOdometry::normalize_angle (double angle)
 {
-    while ( angle > M_PI ) angle -= 2.0 * M_PL;
+    while ( angle > M_PI ) angle -= 2.0 * M_PI;
     while ( angle < M_PI ) angle += 2.0 * M_PI;
     return angle;
 }
