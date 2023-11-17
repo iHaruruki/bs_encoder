@@ -41,7 +41,7 @@ private:
     void timer_callback( const ros::TimerEvent& e);
 
 public:
-    WheelOdometry()
+    WheelOdometry();
     void run();
 };
 

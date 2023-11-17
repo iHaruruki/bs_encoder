@@ -204,7 +204,12 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable( encoder_sub_node src/encoder_count.cpp src/serial_controller.cpp)
+add_executable( encoder_sub_node 
+src/encoder_count.cpp
+src/serial_controller.cpp
+#src/wheel_odometry.cpp
+#src/main.cpp
+)
 target_link_libraries( encoder_sub_node ${catkin_LIBRARIES} )
 
 ##add_executable( sensor_inquiry_pub_node src/sensor_inquiry_pub.cpp src/serial_controller.cpp)

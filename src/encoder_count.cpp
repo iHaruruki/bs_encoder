@@ -9,26 +9,25 @@ SerialPort sp;
 unsigned char encoder_send[] = {0x02, 0x01, 0x05, 0xF9, 0x03};
 unsigned char encoder_response[10];
 
-int Encoder_right = 0;
-int Encoder_left = 0;
-int Encoder_right_before = 0;
-int Encoder_left_before = 0;
-
 void encoder_count()
 {	
 	sp.Write(encoder_send, 5);
 	sp.Read(encoder_response, 10);
 
-	static int Encoder_right_af = 0;
-	static int Encoder_left_af = 0;
+	static int_fast32_t Encoder_right = 0;
+	static int Encoder_left = 0;
+	static int Encoder_right_before = 0;
+	static int Encoder_left_before = 0;
+	static int rotation_right = 0;
+	static int rotation_left = 0;
 
-	Encoder_right = ((encoder_response[5] << 8) | encoder_response[6]);	// ((encoder_response[5] << 32) | encoder_response[6] << 16)
-	Encoder_right -= 32768;		//-(65535/2) = -32767.5 
+	Encoder_right = ((encoder_response[5] << 8 | encoder_response[6]));	// ((encoder_response[5] << 32) | encoder_response[6] << 24)
+	//Encoder_right -= 32768;		//-(65535/2) = -32767.5 
 	Encoder_left = ((encoder_response[7] << 8) | encoder_response[8]);
-	Encoder_left -= 32768;		//
+	Encoder_left -= 32768;		//-(65535/2) = -32767.5 
 
-	int rotation_right = (Encoder_right_before - Encoder_right)*16*(1/500)*(2/147);	//
-	int rotation_left = (Encoder_left_before - Encoder_left)*16*(1/500)*(2/147);	//
+	rotation_right = (/*Encoder_right_before - */Encoder_right)*16*(1/500)*(2/147);	//
+	rotation_left = (/*Encoder_left_before - */Encoder_left)*16*(1/500)*(2/147);	//
 
 	std::cout << "Encoder_right: " << (Encoder_right) << std::endl;
 	std::cout << "Encoder_Left:  " << (Encoder_left) << std::endl;
